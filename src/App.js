@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 const App = () => {
@@ -59,6 +59,12 @@ const App = () => {
       </div>
 
       <div className="map-container">
+        <img
+          src={mapSrc}
+          alt="Map"
+          className="map-image"
+          style={{ width: '100%', height: 'auto' }}
+        />
         <div className="grid-overlay">
           {Array.from({ length: rows * cols }).map((_, index) => {
             const row = Math.floor(index / cols);
@@ -71,21 +77,6 @@ const App = () => {
               ></div>
             );
           })}
-        </div>
-
-        <img
-          src={mapSrc}
-          alt="Map"
-          className="map-image"
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
-
-        <div className="column-headers">
-          {Array.from({ length: cols }).map((_, colIndex) => (
-            <div key={`col-${colIndex}`} className="column-header">
-              {String.fromCharCode(65 + colIndex)}
-            </div>
-          ))}
         </div>
       </div>
 

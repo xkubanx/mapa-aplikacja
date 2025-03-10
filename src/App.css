@@ -3,17 +3,6 @@
   padding: 20px;
 }
 
-.welcome-message {
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-.map-select button {
-  margin: 5px;
-}
-
 .map-container {
   position: relative;
   max-width: 100%;
@@ -21,9 +10,9 @@
 }
 
 .map-image {
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
 }
 
 .grid-overlay {
@@ -41,17 +30,11 @@
 .grid-square {
   border: 1px solid rgba(0, 0, 0, 0.2);
   pointer-events: auto;
+  transition: background-color 0.3s;
 }
 
-.column-headers {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  margin-top: 5px;
-}
-
-.column-header {
-  text-align: center;
-  font-weight: bold;
+.grid-square:hover {
+  background-color: rgba(0, 128, 0, 0.3);
 }
 
 .modal {
@@ -66,18 +49,9 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-content input {
-  margin-bottom: 10px;
-  padding: 5px;
-}
-
 button {
   padding: 5px 10px;
+  margin: 5px;
 }
 
 @media (max-width: 768px) {
@@ -87,9 +61,5 @@ button {
 
   .modal {
     width: 90%;
-  }
-
-  .column-header {
-    font-size: 12px;
   }
 }

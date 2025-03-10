@@ -41,8 +41,8 @@ const App = () => {
   const imageHeight = imageDimensions[map].height;
 
   // Określamy liczbę wierszy i kolumn
-  const rows = map === 'Stanowice' ? 5 : 10;  // Dla Stanowic 5 rzędów, dla Marcinkowic 10
-  const cols = map === 'Stanowice' ? 10 : 10; // Dla Stanowic 10 kolumn, dla Marcinkowic 10
+  const rows = map === 'Stanowice' ? 20 : 25;  // Dla Stanowic 5 rzędów, dla Marcinkowic 10
+  const cols = map === 'Stanowice' ? 20 : 20; // Dla Stanowic 10 kolumn, dla Marcinkowic 10
 
   // Tworzymy siatkę na mapie
   const [grid, setGrid] = useState(createGrid(rows, cols, imageWidth, imageHeight));

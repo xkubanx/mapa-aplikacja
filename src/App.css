@@ -1,15 +1,57 @@
 .App {
-  font-family: Arial, sans-serif;
+  text-align: center;
   padding: 20px;
 }
 
-.map {
-  position: relative;
+.welcome-message {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
-.grid div {
-  border: 1px solid #ccc;
-  cursor: pointer;
+.map-select button {
+  margin: 5px;
+}
+
+.map-container {
+  position: relative;
+  max-width: 100%;
+  margin: 20px auto;
+}
+
+.map-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  pointer-events: none;
+}
+
+.grid-square {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+}
+
+.column-headers {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  margin-top: 5px;
+}
+
+.column-header {
+  text-align: center;
+  font-weight: bold;
 }
 
 .modal {
@@ -17,32 +59,37 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
   background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 100;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-input {
-  margin: 10px;
-  padding: 8px;
-  width: 200px;
+.modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content input {
+  margin-bottom: 10px;
+  padding: 5px;
 }
 
 button {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 5px 10px;
 }
 
-button:hover {
-  background-color: #45a049;
-}
+@media (max-width: 768px) {
+  .map-container {
+    padding: 10px;
+  }
 
-.grid-container div:hover {
-  transform: scale(1.1); /* Powiększenie prostokąta */
-  box-shadow: 0 0 10px rgba(0, 0, 255, 0.8); /* Efekt poświaty */
-  transition: all 0.3s ease; /* Płynna animacja przejścia */
+  .modal {
+    width: 90%;
+  }
+
+  .column-header {
+    font-size: 12px;
+  }
 }

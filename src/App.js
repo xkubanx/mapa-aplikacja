@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import MarcinkowiceImage from "./Marcinkowice.png";
-import StanowiceImage from "./Stanowice.png";
 import "./App.css";
 
 function App() {
@@ -27,12 +25,14 @@ function App() {
         {currentPage === "Marcinkowice" ? (
           <div>
             <h1 className="page-title">Marcinkowice</h1>
-            <img src={MarcinkowiceImage} alt="Marcinkowice" className="page-image" />
+            {/* Zmieniamy ścieżkę do zdjęcia */}
+            <img src="/Marcinkowice.png" alt="Marcinkowice" className="page-image" />
           </div>
         ) : (
           <div>
             <h1 className="page-title">Stanowice</h1>
-            <img src={StanowiceImage} alt="Stanowice" className="page-image" />
+            {/* Zmieniamy ścieżkę do zdjęcia */}
+            <img src="/Stanowice.png" alt="Stanowice" className="page-image" />
           </div>
         )}
       </div>

@@ -1,115 +1,43 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import MarcinkowiceImage from "./Marcinkowice.png";
+import StanowiceImage from "./Stanowice.png";
+import "./App.css";
 
-const App = () => {
-  const [currentSquare, setCurrentSquare] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({ address: '', items: '' });
-  const [map, setMap] = useState('Marcinkowice');
-  const [showMessage, setShowMessage] = useState(true);
-
-  const imageDimensions = {
-    Marcinkowice: { width: 840, height: 794 },
-    Stanowice: { width: 787, height: 386 },
-  };
-
-  const imageWidth = imageDimensions[map].width;
-  const imageHeight = imageDimensions[map].height;
-  const rows = map === 'Stanowice' ? 5 : 10;
-  const cols = 10;
-
-  const handleSquareClick = (row, col) => {
-    setCurrentSquare({ row, col });
-    setShowModal(true);
-  };
-
-  const handleCancel = () => {
-    setFormData({ address: '', items: '' });
-    setShowModal(false);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setFormData({ address: '', items: '' });
-    setShowModal(false);
-  };
-
-  const mapSrc = map === 'Marcinkowice' ? '/Marcinkowice.png' : '/Stanowice.png';
-
-  const handleMessageClose = () => setShowMessage(false);
-
-  const changeMap = (mapName) => setMap(mapName);
+function App() {
+  const [currentPage, setCurrentPage] = useState("Marcinkowice");
 
   return (
-    <div className="App">
-      {showMessage && (
-        <div className="welcome-message">
-          <p>
-            Odnajdź pole z śmieciami -> Kliknij -> Wprowadź adres i rzeczy
-            <br />
-            <strong>Nie używaj polskich znaków!</strong>
-          </p>
-          <button onClick={handleMessageClose}>OK</button>
-        </div>
-      )}
+    <div className="app-container">
+      <nav className="navbar">
+        <button
+          className={`nav-button ${currentPage === "Marcinkowice" ? "active" : ""}`}
+          onClick={() => setCurrentPage("Marcinkowice")}
+        >
+          Marcinkowice
+        </button>
+        <button
+          className={`nav-button ${currentPage === "Stanowice" ? "active" : ""}`}
+          onClick={() => setCurrentPage("Stanowice")}
+        >
+          Stanowice
+        </button>
+      </nav>
 
-      <div className="map-select">
-        <button onClick={() => changeMap('Marcinkowice')}>Marcinkowice</button>
-        <button onClick={() => changeMap('Stanowice')}>Stanowice</button>
-      </div>
-
-      <div className="map-container">
-        <img
-          src={mapSrc}
-          alt="Map"
-          className="map-image"
-          style={{ width: '100%', height: 'auto' }}
-        />
-        <div className="grid-overlay">
-          {Array.from({ length: rows * cols }).map((_, index) => {
-            const row = Math.floor(index / cols);
-            const col = index % cols;
-            return (
-              <div
-                key={index}
-                className="grid-square"
-                onClick={() => handleSquareClick(row, col)}
-              ></div>
-            );
-          })}
-        </div>
-      </div>
-
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>
-              Dane dla pola{' '}
-              {`${String.fromCharCode(65 + currentSquare.col)}${currentSquare.row + 1}`}
-            </h2>
-            <form onSubmit={handleFormSubmit}>
-              <input
-                type="text"
-                placeholder="Adres"
-                value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Rzeczy do zabrania"
-                value={formData.items}
-                onChange={(e) => setFormData({ ...formData, items: e.target.value })}
-              />
-              <button type="submit">Zapisz</button>
-              <button type="button" onClick={handleCancel}>
-                Anuluj
-              </button>
-            </form>
+      <div className="content">
+        {currentPage === "Marcinkowice" ? (
+          <div>
+            <h1 className="page-title">Marcinkowice</h1>
+            <img src={MarcinkowiceImage} alt="Marcinkowice" className="page-image" />
           </div>
-        </div>
-      )}
+        ) : (
+          <div>
+            <h1 className="page-title">Stanowice</h1>
+            <img src={StanowiceImage} alt="Stanowice" className="page-image" />
+          </div>
+        )}
+      </div>
     </div>
   );
-};
+}
 
 export default App;

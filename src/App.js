@@ -32,18 +32,17 @@ const App = () => {
   };
 
   // Ustalamy wymiary mapy w zależności od wybranej mapy
-const imageDimensions = {
-  Marcinkowice: { width: 840, height: 794 },
-  Stanowice: { width: 787, height: 386 },  // Możesz tu zmienić wymiary dla Stanowic
-};
+  const imageDimensions = {
+    Marcinkowice: { width: 840, height: 794 },
+    Stanowice: { width: 787, height: 386 },  // Możesz tu zmienić wymiary dla Stanowic
+  };
 
-const imageWidth = imageDimensions[map].width;
-const imageHeight = imageDimensions[map].height;
+  const imageWidth = imageDimensions[map].width;
+  const imageHeight = imageDimensions[map].height;
 
   // Określamy liczbę wierszy i kolumn
-  const rows = map === 'Stanowice' ? 15 : 20;  // Dla Stanowic 5 rzędów, dla Marcinkowic 15
-const cols = map === 'Stanowice' ? 20 : 20; // Dla Stanowic 10 kolumn, dla Marcinkowic 15
-
+  const rows = map === 'Stanowice' ? 5 : 10;  // Dla Stanowic 5 rzędów, dla Marcinkowic 10
+  const cols = map === 'Stanowice' ? 10 : 10; // Dla Stanowic 10 kolumn, dla Marcinkowic 10
 
   // Tworzymy siatkę na mapie
   const [grid, setGrid] = useState(createGrid(rows, cols, imageWidth, imageHeight));
@@ -51,28 +50,26 @@ const cols = map === 'Stanowice' ? 20 : 20; // Dla Stanowic 10 kolumn, dla Marci
   useEffect(() => {
     setGrid(createGrid(rows, cols, imageWidth, imageHeight));
   }, [map, imageWidth, imageHeight]);
-  
 
   // Funkcja do obsługi kliknięcia w kwadrat
-const handleSquareClick = (row, col) => {
-  if (currentSquare && currentSquare.row === row && currentSquare.col === col) {
-    setShowModal(false);
-    setCurrentSquare(null);
-    // Resetujemy dane formularza, gdy modal jest zamykany
+  const handleSquareClick = (row, col) => {
+    if (currentSquare && currentSquare.row === row && currentSquare.col === col) {
+      setShowModal(false);
+      setCurrentSquare(null);
+      // Resetujemy dane formularza, gdy modal jest zamykany
+      setFormData({ address: '', items: '' });
+    } else {
+      setCurrentSquare({ row, col });
+      setShowModal(true);
+    }
+  };
+
+  // Funkcja do anulowania wprowadzonych danych
+  const handleCancel = () => {
+    // Resetujemy dane formularza przy anulowaniu
     setFormData({ address: '', items: '' });
-  } else {
-    setCurrentSquare({ row, col });
-    setShowModal(true);
-  }
-};
-
-// Funkcja do anulowania wprowadzonych danych
-const handleCancel = () => {
-  // Resetujemy dane formularza przy anulowaniu
-  setFormData({ address: '', items: '' });
-  setShowModal(false);
-};
-
+    setShowModal(false);
+  };
 
   // Funkcja do zapisania danych w formie CSV
   const handleFormSubmit = (e) => {
@@ -119,7 +116,6 @@ const handleCancel = () => {
     const newCols = mapName === 'Stanowice' ? 10 : 10;
     setGrid(createGrid(newRows, newCols, imageWidth, imageHeight)); // Odświeżamy siatkę
   };
-  
 
   // Wybór mapy w zależności od wybranego przycisku
   const mapSrc = map === 'Marcinkowice' ? '/Marcinkowice.png' : '/Stanowice.png';
@@ -133,43 +129,39 @@ const handleCancel = () => {
     <div className="App" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       {/* Komunikat powitalny */}
       {showMessage && (
-  <div className="welcome-message" style={{
-    position: 'fixed',
-    top: '20%',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    padding: '20px',
-    borderRadius: '5px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-    zIndex: 10,
-    textAlign: 'center',
-  }}>
-    Odnajdź pole w którym znajdują się śmieci -> Kliknij w wybrany prostokąt -> wprowadź przybliżony adres -> wprowadź rzeczy które są do zabrania oraz ich ilość <strong>PO SPACJI NIE UŻYWAJ PRZECINKÓW.</strong> 
-      <br />
-      <br />
-
-      <strong>WAŻNE: NIE UŻYWAJ POLSKICH ZNAKÓW!</strong>
-    
-      <br />  {/* Dodaj ten znacznik, aby przenieść przycisk do nowej linijki */}
-<button 
-  onClick={handleMessageClose} 
-  style={{
-    padding: '10px 20px',
-    backgroundColor: '#2196F3',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    marginTop: '10px',
-  }}
->
-  OK
-</button>
-
-  </div>
-)}
-
+        <div className="welcome-message" style={{
+          position: 'fixed',
+          top: '20%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          padding: '20px',
+          borderRadius: '5px',
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+          zIndex: 10,
+          textAlign: 'center',
+        }}>
+          Odnajdź pole w którym znajdują się śmieci -> Kliknij w wybrany prostokąt -> wprowadź przybliżony adres -> wprowadź rzeczy które są do zabrania oraz ich ilość <strong>PO SPACJI NIE UŻYWAJ PRZECINKÓW.</strong> 
+          <br />
+          <br />
+          <strong>WAŻNE: NIE UŻYWAJ POLSKICH ZNAKÓW!</strong>
+          <br />
+          <button 
+            onClick={handleMessageClose} 
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#2196F3',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              marginTop: '10px',
+            }}
+          >
+            OK
+          </button>
+        </div>
+      )}
 
       {/* Przyciski do przełączania map */}
       <div className="map-select" style={{ marginBottom: '40px' }}>
@@ -178,7 +170,7 @@ const handleCancel = () => {
       </div>
 
       {/* Kontener na mapę i siatkę */}
-      <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', width: '100%' }}>
         {/* Kolumna numerów wierszy po lewej stronie */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginRight: '10px', height: imageHeight }}>
           {Array.from({ length: rows }).map((_, rowIndex) => (
@@ -190,12 +182,11 @@ const handleCancel = () => {
 
         {/* Mapa */}
         <div style={{ position: 'relative' }}>
-        <img
-  src={mapSrc}
-  alt="Map"
-  style={{ width: `${imageWidth}px`, height: `${imageHeight}px` }}
-/>
-
+          <img
+            src={mapSrc}
+            alt="Map"
+            style={{ width: '100%', height: 'auto' }} // Mapa responsywna
+          />
 
           {/* Siatka */}
           <div
@@ -210,117 +201,52 @@ const handleCancel = () => {
               display: 'grid',
               gridTemplateColumns: `repeat(${cols}, 1fr)`,
               gridTemplateRows: `repeat(${rows}, 1fr)`,
-              zIndex: 1,
             }}
           >
-            {/* Kwadraty w siatce */}
-{grid.map((square, index) => (
-  <div
-    key={index}
-    onClick={() => handleSquareClick(square.row, square.col)}
-    style={{
-      border: '1px solid rgba(0, 0, 0, 0.3)',
-      backgroundColor: 'transparent',
-      position: 'absolute',
-      top: `${square.y}px`,
-      left: `${square.x}px`,
-      width: `${square.width}px`,
-      height: `${square.height}px`,
-      pointerEvents: 'auto',
-      transition: 'all 0.3s ease', // Płynna animacja przejścia
-    }}
-  />
-))}
-
+            {grid.map((square, index) => (
+              <div
+                key={index}
+                onClick={() => handleSquareClick(square.row, square.col)}
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                  border: '1px solid rgba(0, 0, 0, 0.5)',
+                  boxSizing: 'border-box',
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            ))}
           </div>
-        </div>
-
-        {/* Kolumna numerów kolumn po górnej stronie */}
-        <div style={{ position: 'absolute', top: '-30px', left: 0, width: '100%', display: 'flex', justifyContent: 'center' }}>
-          {Array.from({ length: cols }).map((_, colIndex) => (
-            <div key={`col-${colIndex}`} style={{ fontSize: '14px', fontWeight: 'bold', width: `${imageWidth / cols}px`, textAlign: 'center' }}>
-              {String.fromCharCode(65 + colIndex)}
-            </div>
-          ))}
         </div>
       </div>
 
-      {/* Modal do wprowadzania danych */}
-      {showModal && (
-        <div className="modal" style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'rgba(255, 255, 255, 0.9)',
-          padding: '20px',
-          borderRadius: '5px',
-          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-          zIndex: 2,
-        }}>
-          <div className="modal-content" style={{
-            backgroundColor: 'white',
-            padding: '20px',
-            borderRadius: '4px',
-            display: 'flex',
-            flexDirection: 'column',
-            width: '300px',
-            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-          }}>
+      {/* Modal z formularzem */}
+      {showModal && currentSquare && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Wpisz dane dla {`${String.fromCharCode(65 + currentSquare.col)}${currentSquare.row + 1}`}</h2>
             <form onSubmit={handleFormSubmit}>
               <input
                 type="text"
                 placeholder="Adres"
                 value={formData.address}
                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                style={{ padding: '8px', fontSize: '14px', borderRadius: '4px', border: '1px solid #ccc' }}
               />
-              <input
-                type="text"
-                placeholder="Rzeczy do zabrania oraz ilość"
+              <textarea
+                placeholder="Rzeczy do zabrania"
                 value={formData.items}
                 onChange={(e) => setFormData({ ...formData, items: e.target.value })}
-                style={{ padding: '8px', fontSize: '14px', borderRadius: '4px', border: '1px solid #ccc' }}
               />
-              <button type="submit" style={{
-                padding: '10px 20px',
-                backgroundColor: '#4CAF50',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-              }}>Zapisz</button>
-              <button
-  type="button"
-  onClick={handleCancel} // Zmieniamy tutaj funkcję na handleCancel
-  style={{
-    padding: '10px 20px',
-    backgroundColor: '#f44336',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  }}
->
-  Anuluj
-</button>
-
+              <button type="submit">Zapisz</button>
+              <button type="button" onClick={handleCancel}>Anuluj</button>
             </form>
           </div>
         </div>
       )}
 
-      {/* Przycisk do pobierania pliku CSV */}
-      <button onClick={handleDownloadCSV} style={{
-        padding: '10px 20px',
-        backgroundColor: '#2196F3',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
-      }}>Pobierz dane CSV</button>
+      <button onClick={handleDownloadCSV}>Pobierz CSV</button>
     </div>
   );
-};
+}
 
 export default App;

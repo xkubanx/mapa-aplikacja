@@ -41,8 +41,8 @@ const imageWidth = imageDimensions[map].width;
 const imageHeight = imageDimensions[map].height;
 
   // Określamy liczbę wierszy i kolumn
-  const rows = map === 'Stanowice' ? 5 : 10;  // Dla Stanowic 5 rzędów, dla Marcinkowic 15
-const cols = map === 'Stanowice' ? 10 : 10; // Dla Stanowic 10 kolumn, dla Marcinkowic 15
+  const rows = map === 'Stanowice' ? 10 : 15;  // Dla Stanowic 5 rzędów, dla Marcinkowic 15
+const cols = map === 'Stanowice' ? 15 : 15; // Dla Stanowic 10 kolumn, dla Marcinkowic 15
 
 
   // Tworzymy siatkę na mapie

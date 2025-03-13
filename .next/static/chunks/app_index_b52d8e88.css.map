@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/app/index.css"],"sourcesContent":[".square:hover {\r\n    outline: 1px solid mediumpurple;\r\n    transform: scale(1.05);\r\n    box-shadow: 0 0 20px mediumpurple;\r\n}\r\n\r\n/* Hide scrollbar for Chrome, Safari and Opera */\r\n.example::-webkit-scrollbar {\r\n    display: none;\r\n}\r\n\r\n/* Hide scrollbar for IE, Edge and Firefox */\r\n.example {\r\n    -ms-overflow-style: none;  /* IE and Edge */\r\n    scrollbar-width: none;  /* Firefox */\r\n}\r\n\r\n"],"names":[],"mappings":"AAAA;;;;;;AAOA;;;;AAKA"}}]
+}

@@ -1,0 +1,17 @@
+/* [project]/app/index.css [app-client] (css) */
+.square:hover {
+  outline: 1px solid #9370db;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #9370db;
+}
+
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+.example {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/*# sourceMappingURL=app_index_b52d8e88.css.map*/
